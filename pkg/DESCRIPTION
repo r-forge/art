@@ -1,0 +1,14 @@
+Package: art
+Version: 0.1-1
+Date: 2007-02-09
+Title: Applied Regression Tools
+Author: John Fox, Sanford Weisberg, Achim Zeileis
+Maintainer: Achim Zeileis <Achim.Zeileis@R-project.org>
+Description: Tools for working with various types of regression tools,
+             including diagnostic graphics, inference and model
+	     comparison.
+LazyLoad: yes
+LazyData: yes
+Depends: R (>= 2.3.0)
+Suggests: car, alr3, lmtest, sandwich
+License: GPL version 2
