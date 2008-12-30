@@ -30,7 +30,8 @@ lht(model, ...)
     test=c("Chisq", "F"), vcov.=NULL, verbose=FALSE, ...)  
 
 \method{linearHypothesis}{lm}(model, hypothesis.matrix, rhs=NULL,
-    test=c("F", "Chisq"), vcov.=NULL, white.adjust=FALSE, ...)
+    test=c("F", "Chisq"), vcov.=NULL, 
+	white.adjust=c(FALSE, TRUE, "hc3", "hc0", "hc1", "hc2", "hc4"), ...)
 
 \method{linearHypothesis}{glm}(model,  ...)
 
@@ -91,9 +92,9 @@ lht(model, ...)
     coefficients, e.g., \code{\link{hccm}}, or an estimated covariance matrix
     for \code{model}. See also \code{white.adjust}.}        
   \item{white.adjust}{logical or character. Convenience interface to \code{hccm}
-    (instead of using the argument \code{vcov}). Can be set either to a character
+    (instead of using the argument \code{vcov.}). Can be set either to a character value
     specifying the \code{type} argument of \code{\link{hccm}} or \code{TRUE},
-    in which case \code{"hc3"} is used implicitly. For backwards compatibility.}
+    in which case \code{"hc3"} is used implicitly. The default is \code{FALSE}.}
   \item{verbose}{If \code{TRUE}, the hypothesis matrix, right-hand-side
     vector (or matrix), and estimated value of the hypothesis 
     are printed to standard output; if \code{FALSE} (the default),

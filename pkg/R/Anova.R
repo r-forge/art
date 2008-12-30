@@ -33,16 +33,18 @@ Anova <- function(mod, ...){
 # linear models
 
 Anova.lm <- function(mod, error, type=c("II","III", 2, 3), 
-	white.adjust=c("hc3", "hc0", "hc1", "hc2", "hc4"), ...){
+	white.adjust=c(FALSE, TRUE, "hc3", "hc0", "hc1", "hc2", "hc4"), ...){
 	type <- as.character(type)
+	white.adjust <- as.character(white.adjust)
 	type <- match.arg(type)
+	white.adjust <- match.arg(white.adjust)
 	if (has.intercept(mod) && length(coef(mod)) == 1 
 		&& (type == "2" || type == "II")) {
 		type <- "III"
 		warning("the model contains only an intercept: Type III test substituted")
 	}
-	if (!(missing(white.adjust))){
-		white.adjust <- if (white.adjust == TRUE) "hc3" else match.arg(white.adjust)
+	if (white.adjust != "FALSE"){
+		if (white.adjust == "TRUE") white.adjust <- "hc3" 
 		return(Anova.default(mod, type=type, vcov.=hccm(mod, type=white.adjust), test="F"))
 	}
 	switch(type,

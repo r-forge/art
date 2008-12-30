@@ -175,12 +175,16 @@ linearHypothesis.glm <- function(model, ...)
 	linearHypothesis.default(model, ...)
 
 linearHypothesis.lm <- function(model, hypothesis.matrix, rhs=NULL,
-	test=c("F", "Chisq"), vcov.=NULL, white.adjust=FALSE, ...){
+	test=c("F", "Chisq"), vcov.=NULL, 
+	white.adjust=c(FALSE, TRUE, "hc3", "hc0", "hc1", "hc2", "hc4"), ...){
 	if (is.aliased(model)) stop("One or more terms aliased in model.")
 	test <- match.arg(test)
-	if (identical(white.adjust, TRUE)) white.adjust <- "hc3"
-	if (is.null(vcov.) && is.character(white.adjust))
+	white.adjust <- as.character(white.adjust)
+	white.adjust <- match.arg(white.adjust)
+	if (white.adjust != "FALSE"){
+		if (white.adjust == "TRUE") white.adjust <- "hc3" 
 		vcov. <- hccm(model, type = white.adjust)
+	}
 	rval <- linearHypothesis.default(model, hypothesis.matrix, rhs = rhs,
 		test = test, vcov. = vcov., ...)
 	if (is.null(vcov.)) {
