@@ -1,6 +1,7 @@
 #-------------------------------------------------------------------------------
 # Revision history:
 # checked in 2008-12-29 by J. Fox (corresponds to version 1.2-10 of car)
+# 2009-01-05: bug fix in Anova.II.lm(). J. Fox
 #-------------------------------------------------------------------------------
 
 # Type II and III tests for linear, generalized linear, and other models (J. Fox)
@@ -73,8 +74,8 @@ Anova.II.lm <- function(mod, error, ...){
 		subs.relatives <- NULL
 		for (relative in relatives) 
 			subs.relatives <- c(subs.relatives, which(assign == relative))
-		hyp.matrix.1 <- I.p[subs.relatives,]
-		hyp.matrix.2 <- I.p[c(subs.relatives,subs.term),]
+		hyp.matrix.1 <- I.p[subs.relatives,,drop=FALSE]
+		hyp.matrix.2 <- I.p[c(subs.relatives,subs.term),,drop=FALSE]
 		hyp.matrix.term <- if (nrow(hyp.matrix.1) == 0) hyp.matrix.2
 			else t(ConjComp(t(hyp.matrix.1), t(hyp.matrix.2), vcov(mod)))
 		abs(linearHypothesis(mod, hyp.matrix.term, 
@@ -126,7 +127,7 @@ Anova.III.lm <- function(mod, error, ...){
 	sumry <- summary(mod, corr = FALSE)
 	for (term in 1:n.terms){
 		subs <- which(assign == term - intercept)
-		hyp.matrix <- I.p[subs,]
+		hyp.matrix <- I.p[subs,,drop=FALSE]
 		test <- if (missing(error)) linearHypothesis(mod, hyp.matrix, summary.model=sumry, ...)
 			else linearHypothesis(mod, hyp.matrix, error.SS=error.SS, error.df=error.df, 
 					summary.model=sumry, ...)
@@ -564,7 +565,7 @@ Anova.III.mlm <- function(mod, SSPE, error.df, idata, idesign, icontrasts, test,
 		names(df) <- names(SSP) <- terms
 		for (term in 1:n.terms){
 			subs <- which(assign == term - intercept)
-			hyp.matrix <- I.p[subs,]
+			hyp.matrix <- I.p[subs,,drop=FALSE]
 			Test <- linearHypothesis(mod, hyp.matrix, SSPE=SSPE, ...)
 			SSP[[term]] <- Test$SSPH
 			df[term]<- length(subs)
@@ -585,7 +586,7 @@ Anova.III.mlm <- function(mod, SSPE, error.df, idata, idesign, icontrasts, test,
 		for (iterm in iterms){
 			for (term in 1:n.terms){
 				subs <- which(assign == term - intercept)
-				hyp.matrix <- I.p[subs,]
+				hyp.matrix <- I.p[subs,,drop=FALSE]
 				i <- i + 1
 				Test <- linearHypothesis(mod, hyp.matrix, SSPE=SSPE, 
 					idata=idata, idesign=idesign, icontrasts=icontrasts, iterms=iterm, ...)
@@ -615,8 +616,8 @@ Anova.II.mlm <- function(mod, SSPE, error.df, idata, idesign, icontrasts, test, 
 		relatives <- relatives(term, terms, fac)
 		subs.relatives <- NULL
 		for (relative in relatives) subs.relatives <- c(subs.relatives, which(assign==relative))
-		hyp.matrix.1 <- I.p[subs.relatives,]
-		hyp.matrix.2 <- I.p[c(subs.relatives, subs.term),]
+		hyp.matrix.1 <- I.p[subs.relatives,,drop=FALSE]
+		hyp.matrix.2 <- I.p[c(subs.relatives, subs.term),,drop=FALSE]
 		if (missing(iterm)){
 			SSP1 <- if (length(subs.relatives) == 0) 0 
 				else linearHypothesis(mod, hyp.matrix.1, SSPE=SSPE, V=V, ...)$SSPH
@@ -671,7 +672,7 @@ Anova.II.mlm <- function(mod, SSPE, error.df, idata, idesign, icontrasts, test, 
 		for (iterm in iterms){
 			if (intercept){
 				i <- i + 1
-				hyp.matrix.1 <- I.p[-1,]
+				hyp.matrix.1 <- I.p[-1,,drop=FALSE]
 				SSP1 <- linearHypothesis(mod, hyp.matrix.1, SSPE=SSPE, V=V, 
 					idata=idata, idesign=idesign, iterms=iterm, icontrasts=icontrasts, ...)$SSPH
 				lh2 <- linearHypothesis(mod, I.p, SSPE=SSPE, V=V, 
@@ -1151,7 +1152,7 @@ Anova.III.default <- function(mod, vcov., test, ...){
 	}
 	for (term in 1:n.terms){
 		subs <- which(assign == term - intercept)
-		hyp.matrix <- I.p[subs,]
+		hyp.matrix <- I.p[subs,,drop=FALSE]
 		hyp <- linearHypothesis.default(mod, hyp.matrix, 
 			vcov.=vcov., test=test, ...)
 		teststat[term] <- if (test=="Chisq") hyp$Chisq[2] else hyp$F[2]
