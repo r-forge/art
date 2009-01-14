@@ -1,6 +1,7 @@
 #-------------------------------------------------------------------------------
 # Revision history:
-# checked in 2008-12-29 by J. Fox 
+# checked in 2008-12-29 by J. Fox
+# revised 2009-1-14 by S. Weisberg 
 #-------------------------------------------------------------------------------
 
 export(
@@ -9,7 +10,9 @@ export(
 	hccm,
 	lht,
     linearHypothesis,
-    Manova
+    Manova,
+    basicpower, bcpower, yjpower, powerTransform,
+    estimateTransform,testTransform
     )
     
 S3method(Anova, aov)
@@ -22,8 +25,19 @@ S3method(Anova, multinom)
 S3method(Anova, mlm)            
 S3method(Anova, polr) 
 S3method(deltaMethod, default)
+S3method(deltaMethod, lm)
+S3method(deltaMethod, lmList)
+S3method(deltaMethod, nlsList)
+S3method(deltaMethod, lme)
+S3method(deltaMethod, nlme)
+S3method(deltaMethod, mer)
+S3method(deltaMethod,multinom)
+S3method(deltaMethod,polr)
 S3method(deltaMethod, drc)
-S3method(deltaMethod, nls)   
+S3method(deltaMethod, nls)
+S3method(powerTransform,default) 
+S3method(powerTransform,lm)
+S3method(powerTransform,formula)  
 S3method(hccm, default)              
 S3method(hccm, lm)   
 S3method(linearHypothesis, default) 
@@ -31,7 +45,10 @@ S3method(linearHypothesis, glm)
 S3method(linearHypothesis, lm)
 S3method(linearHypothesis, mlm)
 S3method(Manova, mlm) 
-S3method(print, Anova.mlm)
-S3method(print, deltaMethod)   
+S3method(print, Anova.mlm)   
 S3method(print, linearHypothesis.mlm)           
 S3method(summary, Anova.mlm)
+S3method(print,powerTransform)
+S3method(summary,powerTransform)
+S3method(coef,powerTransform)
+S3method(vcov,powerTransform)
