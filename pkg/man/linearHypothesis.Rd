@@ -2,6 +2,7 @@
 % Revision history:
 % checked in 2008-12-29 by J. Fox (corresponds to version 1.2-10 of car
 %		with function renamed from linear.hypothesis)
+%	2009-01-16 updated doc to correspond to changes in linearHypothesis. J. Fox
 %-------------------------------------------------------------------------------
 
 \name{linearHypothesis}
@@ -40,7 +41,7 @@ lht(model, ...)
     P=NULL, title="", verbose=FALSE, ...)
        
 \method{print}{linearHypothesis.mlm}(x, SSP=TRUE, SSPE=SSP, 
-    digits=unlist(options("digits")), ...) 
+    digits=getOption("digits"), ...) 
 }
 
 \arguments{

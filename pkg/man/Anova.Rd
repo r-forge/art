@@ -1,6 +1,7 @@
 %-------------------------------------------------------------------------------
 % Revision history:
 % checked in 2008-12-29 by J. Fox (corresponds to version 1.2-10 of car)
+%	2009-01-16 updated doc to correspond to changes in linearHypothesis. J. Fox
 %-------------------------------------------------------------------------------
 
 \name{Anova}
@@ -63,7 +64,7 @@ Manova(mod, ...)
 \method{print}{Anova.mlm}(x, ...)
 
 \method{summary}{Anova.mlm}(object, test.statistic, multivariate=TRUE, 
-    univariate=TRUE, digits=unlist(options("digits")), ...)
+    univariate=TRUE, digits=getOption("digits"), ...)
 \method{Anova}{coxph}(mod, type=c("II","III", 2, 3), 
 	test.statistic=c("LR", "Wald"), ...)
 \method{Anova}{default}(mod, type=c("II","III", 2, 3), 

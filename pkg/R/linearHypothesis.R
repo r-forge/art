@@ -2,6 +2,7 @@
 # Revision history:
 # checked in 2008-12-29 by J. Fox (corresponds to version 1.2-10 of car
 #		with function renamed from linear.hypothesis)
+#	2009-01-16: replaced unlist(options("foo")) with getOption("foo")
 #-------------------------------------------------------------------------------
 
 
@@ -289,7 +290,7 @@ linearHypothesis.mlm <- function(model, hypothesis.matrix, rhs=NULL, SSPE, V,
 }
 
 print.linearHypothesis.mlm <- function(x, SSP=TRUE, SSPE=SSP, 
-	digits=unlist(options("digits")), ...){
+	digits=getOption("digits"), ...){
 	test <- x$test
 	if (!is.null(x$P) && SSP){
 		P <- x$P
