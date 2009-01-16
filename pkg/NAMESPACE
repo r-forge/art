@@ -2,6 +2,7 @@
 # Revision history:
 # checked in 2008-12-29 by J. Fox
 # revised 2009-1-14 by S. Weisberg 
+# revised 2009-1-15 by J. Fox
 #-------------------------------------------------------------------------------
 
 export(
@@ -23,7 +24,8 @@ S3method(Anova, lm)
 S3method(Anova, manova)                  
 S3method(Anova, multinom)
 S3method(Anova, mlm)            
-S3method(Anova, polr) 
+S3method(Anova, polr)
+S3method(Anova, survreg) 
 S3method(deltaMethod, default)
 S3method(deltaMethod, lm)
 S3method(deltaMethod, lmList)
