@@ -6,7 +6,7 @@
 \title{Box-Cox and Yeo-Johnson power transformations}
 \description{
 Transform the elements of a vector using either the Box-Cox or
-Yeo-Johnson power transformations.}
+Yeo-Johnson power transformations.
 }
 \usage{
 bcpower(U, lambda, modified = TRUE)

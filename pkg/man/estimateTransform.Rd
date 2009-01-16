@@ -8,7 +8,7 @@ parameter, the Box-Cox power family, or the Yeo and Johnson (2000) family, or th
 basic power family, interpreting zero power as logarithmic. 
 The family can be modified to have Jacobian one, or not, except for the basic
 power family.  Most users will use the function \code{\link{powerTransform}}, which
-is a front-end for this function.}
+is a front-end for this function.
 }
 \usage{
 estimateTransform(X, Y, weights=NULL, family="bcpower",start=NULL,
