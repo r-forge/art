@@ -29,7 +29,7 @@ deltaMethod.default <- function(object,g,var,...){
 deltaMethod.lm<-function(object,g,var=vcov,parameterPrefix="b",...)
 {
    para <- coef(object)
-   var <- if(is.function(var)) var(object)
+   var <- if(is.function(var)) var(object) else var
    names(para) <- if ("(Intercept)" %in% names(para))
     paste(parameterPrefix,0:(length(para)-1),sep="") else
     paste(parameterPrefix,1:length(para),sep="")
@@ -41,11 +41,6 @@ deltaMethod.nls<-function(object, g, var=vcov,...)
    var <- if(is.function(var)) var(object)
    deltaMethod.default(coef(object),g,var)}
   
-deltaMethod.drc <-  
-function(object,g,var=vcov,...)
-{  var <- if(is.function(var)) var(object)
-   deltaMethod.default(coef(object),g,var)
-   }
    
 deltaMethod.lmList <- function(object,g,var=vcov,parameterPrefix="b",...){
   out <- NULL

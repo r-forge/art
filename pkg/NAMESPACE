@@ -3,6 +3,7 @@
 # checked in 2008-12-29 by J. Fox
 # revised 2009-1-14 by S. Weisberg 
 # revised 2009-1-15 by J. Fox
+# revised 2009-8-21 by S. Weisberg
 #-------------------------------------------------------------------------------
 
 export(
@@ -13,7 +14,9 @@ export(
     linearHypothesis,
     Manova,
     basicpower, bcpower, yjpower, powerTransform,
-    estimateTransform,testTransform
+    estimateTransform,testTransform,
+    invResPlot,inverseResponsePlot,invTranPlot,
+    invTranEstimate
     )
     
 S3method(Anova, aov)
@@ -35,10 +38,10 @@ S3method(deltaMethod, nlme)
 S3method(deltaMethod, mer)
 S3method(deltaMethod,multinom)
 S3method(deltaMethod,polr)
-S3method(deltaMethod, drc)
 S3method(deltaMethod, nls)
 S3method(powerTransform,default) 
 S3method(powerTransform,lm)
+S3method(inverseResponsePlot,lm)
 S3method(powerTransform,formula)  
 S3method(hccm, default)              
 S3method(hccm, lm)   

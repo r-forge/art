@@ -47,7 +47,7 @@ Cox (1964) transformations to normality only by allowing for families other than
 power transformations used in that paper.  
 
 For a formula like \code{cbind(y1,y2,y3)~x1+x2+x3}, the three variables on
-the left-side are all transformed, generally different transformations
+the left-side are all transformed, generally with different transformations
 to make all the residuals as close to
 normally distributed as possible.  \code{cbind(y1,y2,y3)~1} would specify transformations
 to multivariate normality with no predictors.  This generalizes the multivariate
@@ -58,7 +58,7 @@ a set of predictors \code{z1, z2, z3} for multivariate normality and for transfo
 for multivariate normality conditional on levels of a factor, which is equivalent
 to setting the predictors to be indicator variables for that factor.  
 
-Specifying the first argument is a vector, for example
+Specifying the first argument as a vector, for example
 \code{powerTransform(ais$LBM)}, is equivalent to
 \code{powerTransform(LBM~1, ais)}.  Similarly,
 \code{powerTransform(cbind(ais$LBM, ais$SSF))}, where the first argument is a matrix
@@ -97,7 +97,8 @@ confidence intervals and relevant likelihood ratio tests.
 
 Several helper functions are available.  The \code{coef} method returns 
 the estimated transformation parameters, while \code{coef(object,round=TRUE)} will
-return the transformations rounded to nearby convenient values.
+return the transformations rounded to nearby convenient values within 1.96
+standard errors of the mle.
 The \code{vcov} function returns the estimated covariance matrix of the estimated
 transformation parameters.  A \code{print} method is used to
 print the objects and \code{summary} to provide more information.  By default
@@ -134,7 +135,7 @@ data(ais,package="alr3")
 summary(p1 <- powerTransform(LBM~Ht+Wt+RCC,ais))
 # fit linear model with transformed response:
 coef(p1,round=TRUE)
-summary(m1 <- lm(bcpower(LBM,p1$roundlam,modified=FALSE)~Ht+Wt+RCC,ais))
+summary(m1 <- lm(bcpower(LBM,p1$roundlam)~Ht+Wt+RCC,ais))
 # Multivariate Box Cox
 summary(powerTransform(cbind(LBM,Ht,Wt,RCC)~1,ais))
 # Multivariate transformation to normality within levels of 'Sex'

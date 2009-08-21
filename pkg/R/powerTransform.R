@@ -16,11 +16,11 @@ basicpower <- function(U,lambda) {
     bp1(out,lambda)
   out}
   
-bcpower <- function(U,lambda,modified=TRUE) {
+bcpower <- function(U,lambda,jacobian.adjusted=FALSE) {
  bc1 <- function(U,lambda){
   if(any(U[!is.na(U)] <= 0)) stop("First argument must be strictly positive.")
   z <- if (abs(lambda) <= 1.e-6) log(U) else ((U^lambda) - 1)/lambda
-  if (modified == TRUE) {
+  if (jacobian.adjusted == TRUE) {
     z * (exp(mean(log(U),na.rm=TRUE)))^(1-lambda)} else z
   }
   out <- U
@@ -32,13 +32,13 @@ bcpower <- function(U,lambda,modified=TRUE) {
     bc1(out,lambda)
   out}
   
-yjpower <- function(U,lambda,modified=TRUE) {
+yjpower <- function(U,lambda,jacobian.adjusted=FALSE) {
  yj1 <- function(U,lambda){
   nonnegs <- U >= 0
   z <- rep(NA,length(U))
-  z[which(nonnegs)] <- bcpower(U[which(nonnegs)]+1,lambda,modified=FALSE)
-  z[which(!nonnegs)] <- bcpower(-U[which(!nonnegs)]+1,2-lambda,modified=FALSE)
-  if (modified == TRUE)
+  z[which(nonnegs)] <- bcpower(U[which(nonnegs)]+1,lambda,jacobian.adjusted=FALSE)
+  z[which(!nonnegs)] <- -bcpower(-U[which(!nonnegs)]+1,2-lambda,jacobian.adjusted=FALSE)
+  if (jacobian.adjusted == TRUE)
         z * (exp(mean(log((1 + abs(U))^(2 * nonnegs - 1)),na.rm=TRUE)))^(1 -
             lambda)
     else z
@@ -109,10 +109,10 @@ estimateTransform <- function(X, Y, weights=NULL,
    nr <- nrow(Y)
    xqr <- qr(w * X)       
    llik <- function(lambda){
-        (nr/2)*log(((nr-1)/nr)*det(var(qr.resid(xqr,w*fam(Y,lambda)))))
+        (nr/2)*log(((nr-1)/nr)*det(var(qr.resid(xqr,w*fam(Y,lambda,j=TRUE)))))
         }
    llik1d <- function(lambda,Y){
-        (nr/2)*log(((nr-1)/nr)*var(qr.resid(xqr,w*fam(Y,lambda))))
+        (nr/2)*log(((nr-1)/nr)*var(qr.resid(xqr,w*fam(Y,lambda,j=TRUE))))
         }
    if (is.null(start)) {
         start <- rep(1, nc)
@@ -134,7 +134,7 @@ estimateTransform <- function(X, Y, weights=NULL,
    stderr <- sqrt(diag(solve(res$hessian)))
    lamL <- roundlam-1.96*stderr
    lamU <- roundlam+1.96*stderr
-   for (val in rev(c(1,0,-1,.5,.33,-.5,-.3,2,-2))) { 
+   for (val in rev(c(1,0,-1,.5,.33,-.5,-.33,2,-2))) { 
        sel <- lamL <= val & val <= lamU 
     roundlam[sel] <- val
     }
@@ -158,7 +158,7 @@ testTransform <-function(object,lambda=rep(1,dim(object$y)[2])){
    xqr <- object$xqr 
    w <- if(is.null(object$weights)) 1 else sqrt(object$weights)  
    llik <- function(lambda){
-        (nr/2)*log(((nr-1)/nr)*det(var(qr.resid(xqr,w*fam(Y,lam)))))
+        (nr/2)*log(((nr-1)/nr)*det(var(qr.resid(xqr,w*fam(Y,lam,j=TRUE)))))
         }
    LR <- 2*(llik(lambda)-object$value)
    df <- length(object$lambda)
@@ -208,3 +208,6 @@ vcov.powerTransform <- function(object,...) {
   rownames(ans) <- names(coef(object))
   colnames(ans) <- names(coef(object))
   ans}
+  
+  
+

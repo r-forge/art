@@ -9,9 +9,9 @@ Transform the elements of a vector using either the Box-Cox or
 Yeo-Johnson power transformations.
 }
 \usage{
-bcpower(U, lambda, modified = TRUE)
+bcpower(U, lambda, jacobian.adjusted = FALSE)
 
-yjpower(U, lambda, modified = TRUE)
+yjpower(U, lambda, jacobian.adjusted = FALSE)
 
 basicpower(U,lambda)
 }
@@ -21,8 +21,8 @@ basicpower(U,lambda)
   \item{lambda}{The one-dimensional transformation parameter, usually in 
   the range from \eqn{-2} to \eqn{2}, or if U is a matrix, a vector of length
   ncol(U) of transformation parameters}
-  \item{modified}{If TRUE, the transformation is normalized to have
-  Jacobian equal to one}
+  \item{jacobian.adjusted}{If TRUE, the transformation is normalized to have
+  Jacobian equal to one.  The default is FALSE.}
 }
 
 \details{
@@ -35,7 +35,7 @@ basicpower(U,lambda)
   This is is Box-Cox transformation of \eqn{U+1} for nonnegative values, 
   and of \eqn{|U|+1} with parameter \eqn{2-\lambda}{2-lambda} for \eqn{U} negative.
 
-  If \code{modified=TRUE}, then the scaled transformations are divided by the 
+  If \code{jacobian.adjusted =TRUE}, then the scaled transformations are divided by the 
   Jacobian, which is a function of the geometric mean of \eqn{U}.
   
   The basic power transformation returns \eqn{U^{\lambda}} if \eqn{\lambda}
@@ -62,9 +62,9 @@ transformations to improve normality or symmetry.  \emph{Biometrika}, 87,
 U <- c(NA,(-3:3))
 \dontrun{bcpower(U,0)}  # produces an error as U has negative values
 bcpower(U+4,0)
-bcpower(U+4,.5,modified=TRUE)
+bcpower(U+4,.5,jacobian.adjusted =TRUE)
 yjpower(U,0)
-yjpower(U+3,.5,modified=TRUE)
+yjpower(U+3,.5,jacobian.adjusted =TRUE)
 V <- matrix(1:10,ncol=2)
 bcpower(V,c(0,1))
 #basicpower(V,c(0,1))
