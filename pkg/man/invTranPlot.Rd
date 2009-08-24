@@ -14,8 +14,8 @@ fit from the regression of \eqn{Y}{Y} on
 find the nonlinear least squares estimate of \eqn{\lambda}{lambda} and its
 standard error.
 }
-\usage{
-invTranPlot(x, ...}
+\usage{            
+invTranPlot(x, ...)
 
 \S3method{invTranPlot}{formula}(x,data,subset,na.action,...)
 
