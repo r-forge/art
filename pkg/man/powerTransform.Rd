@@ -15,7 +15,7 @@ power family.
 \usage{
 powerTransform(object,...)
 
-\S3method{powerTransform}{default}(object,subset,na.action=na.omit,...)
+\S3method{powerTransform}{default}(object,...)
 
 \S3method{powerTransform}{lm}(object, ...)
 

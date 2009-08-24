@@ -54,12 +54,13 @@ yjpower <- function(U,lambda,jacobian.adjusted=FALSE) {
   
 powerTransform <- function(object,...) UseMethod("powerTransform")
 
-powerTransform.default <- function(object,subset,na.action=na.omit,...) {
-   y <- na.omit(if (missing(subset)) object else object[subset,])
+powerTransform.default <- function(object,...) {
+   y <- object
    if(!inherits(y,"matrix") & !inherits(y,"data.frame")) {
        y <- matrix(y,ncol=1)
-       colnames(y) <- c(as.name(substitute(object)))}
-   x <- rep(1,dim(y)[1],ncol=1) 
+       colnames(y) <- c(paste(deparse(substitute(object))))}
+   y <- na.omit(y)
+   x <- rep(1,dim(y)[1]) 
    estimateTransform(x,y,NULL,...)
    }                                    
 
@@ -186,7 +187,7 @@ summary.powerTransform<-function(object,...){
     colnames(result)<-c("Est.Power","Std.Err.","Wald Lower Bound","Wald Upper Bound")
     tests <- testTransform(object,0)
     tests <- rbind(tests,testTransform(object,1))
-    if ( !(all(object$roundlam==0) | all(object$roundlam==1)) )
+    if ( !(all(object$roundlam==0) | all(object$roundlam==1) | length(object$roundlam)==1 ))
         tests <- rbind(tests,testTransform(object,object$roundlam))
     out <-  list(label=label,result=result,tests=tests)
     class(out) <- "summary.powerTransform"

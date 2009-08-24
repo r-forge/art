@@ -1,5 +1,7 @@
 \name{invTranPlot}
 \alias{invTranPlot}
+\alias{invTranPlot.default}
+\alias{invTranPlot.formula}
 \alias{invTranEstimate}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Choose a predictor transformation visually or numerically }
@@ -13,17 +15,25 @@ find the nonlinear least squares estimate of \eqn{\lambda}{lambda} and its
 standard error.
 }
 \usage{
-invTranPlot(x,y,lambda=c(-1,0,1),lty=1:(1+length(lambda)),lwd=2,
-        col.lines=rainbow(length(lambda)+1,start=0.7, end=0.1),xlab=deparse(substitute(x)),
-        ylab=deparse(substitute(y)),family="bcpower",optimal=TRUE,
-        key="topleft",...)
+invTranPlot(x, ...}
 
-invTranEstimate(x,y,family="bcpower",confidence=0.95,...)
+\S3method{invTranPlot}{formula}(x,data,subset,na.action,...)
+
+\Semethod((x,y,lambda=c(-1,0,1),lty.lines=1:(1+length(lambda)),
+        lwd.lines=2, col.lines=rainbow(length(lambda)+1,start=.7,end=.1),
+        xlab=deparse(substitute(x)),ylab=deparse(substitute(y)),
+        family="bcpower",optimal=TRUE,key="topleft",...)
+
+invTranEstimate(x,y,family="bcpower",confidence=0.95)
 }
 
 \arguments{
-  \item{x}{The predictor variable }
+  \item{x}{The predictor variable, or a formula with a single response and
+  a single predictor }
   \item{y}{The response variable }
+  \item{data}{An optional data frame to get the data for the formula}
+  \item{subset}{Optional, as in \code{lm}, select a subset of the cases}
+  \item{na.action}{Optional, as in \code{lm}, the action for missing data}
   \item{lambda}{The powers used in the plot.  The optimal power than minimizes
   the residual sum of squares is always added unless optimal is FALSE. }
   \item{family}{The transformation family to use, \code{"bcpower"},
@@ -31,8 +41,8 @@ invTranEstimate(x,y,family="bcpower",confidence=0.95,...)
   \item{confidence}{returns a profile likelihood confidence interval for the optimal 
 transformation with this confidence level.  If FALSE, no interval is returned.}
   \item{optimal}{Include the optimal value of lambda?}
-  \item{lty}{line types corresponding to the powers}
-  \item{lwd}{the width of the plotted lines, defaults to 2 times the standard}
+  \item{lty.lines}{line types corresponding to the powers}
+  \item{lwd.lines}{the width of the plotted lines, defaults to 2 times the standard}
   \item{col.lines}{color of the fitted lines corresponding to the powers}
   \item{key}{The default is \code{"topleft"}, in which case a legend is added to
 the top left corner of the plot; other choices include \code{"bottomright"}.
@@ -43,7 +53,7 @@ key interactively by clicking on the plot.}
 
   \item{ylab}{Label for the vertical axis.}
 
-  \item{\dots}{ additional arguments passed to the plot method.}
+  \item{\dots}{ Additional arguments passed to the plot method.}
 }
 \value{
 \code{invTranPlot}
