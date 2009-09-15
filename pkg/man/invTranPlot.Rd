@@ -19,7 +19,7 @@ invTranPlot(x, ...)
 
 \S3method{invTranPlot}{formula}(x,data,subset,na.action,...)
 
-\Semethod((x,y,lambda=c(-1,0,1),lty.lines=1:(1+length(lambda)),
+\S3method{invTranPlot}{default}(x,y,lambda=c(-1,0,1),lty.lines=1:(1+length(lambda)),
         lwd.lines=2, col.lines=rainbow(length(lambda)+1,start=.7,end=.1),
         xlab=deparse(substitute(x)),ylab=deparse(substitute(y)),
         family="bcpower",optimal=TRUE,key="topleft",...)

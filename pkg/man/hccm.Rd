@@ -1,6 +1,7 @@
 %-------------------------------------------------------------------------------
 % Revision history:
 % checked in 2008-12-29 by J. Fox (corresponds to version 1.2-10 of car)
+% 2009-09-16: added argument singular.ok to lm method. J. Fox
 %-------------------------------------------------------------------------------
 
 \name{hccm}
@@ -17,7 +18,8 @@
 \usage{
 hccm(model, ...)
 
-\method{hccm}{lm}(model, type=c("hc3", "hc0", "hc1", "hc2", "hc4"), ...)
+\method{hccm}{lm}(model, type=c("hc3", "hc0", "hc1", "hc2", "hc4"), 
+	singular.ok=TRUE, ...)
 
 \method{hccm}{default}(model, ...)
 }
@@ -27,6 +29,9 @@ hccm(model, ...)
   \item{type}{one of \code{"hc0"}, \code{"hc1"}, \code{"hc2"}, \code{"hc3"}, or \code{"hc4"}; the
     first of these gives the classic White correction. The \code{"hc1"}, \code{"hc2"}, and \code{"hc3"}
     corrections are described in Long and Ervin (2000); \code{"hc4"} is described in Cribari-Neto (2004).}
+  \item{singular.ok}{if \code{FALSE} (the default is \code{TRUE}), a model with aliased coefficients
+    produces an error; otherwise, the aliased coefficients are ignored in the coefficient covariance
+    matrix that's returned.}
   \item{...}{arguments to pass to \code{hccm.lm}.}
 }
 

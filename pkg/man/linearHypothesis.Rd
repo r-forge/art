@@ -28,11 +28,12 @@ linearHypothesis(model, ...)
 lht(model, ...)
 
 \method{linearHypothesis}{default}(model, hypothesis.matrix, rhs=NULL, 
-    test=c("Chisq", "F"), vcov.=NULL, verbose=FALSE, ...)  
+    test=c("Chisq", "F"), vcov.=NULL, singular.ok=FALSE, verbose=FALSE, ...)  
 
 \method{linearHypothesis}{lm}(model, hypothesis.matrix, rhs=NULL,
     test=c("F", "Chisq"), vcov.=NULL, 
-	white.adjust=c(FALSE, TRUE, "hc3", "hc0", "hc1", "hc2", "hc4"), ...)
+	white.adjust=c(FALSE, TRUE, "hc3", "hc0", "hc1", "hc2", "hc4"), 
+	singular.ok=FALSE, ...)
 
 \method{linearHypothesis}{glm}(model,  ...)
 
@@ -56,6 +57,9 @@ lht(model, ...)
     rows in the hypothesis matrix; can be omitted, in which case it defaults
     to a vector of zeroes. For a multivariate linear model, \code{rhs} is a
     matrix, defaulting to 0.}
+  \item{singular.ok}{if \code{FALSE} (the default), a model with aliased
+    coefficients produces an error; if \code{TRUE}, the aliased coefficients
+    are ignored, and the hypothesis matrix should not have columns for them.}
   \item{idata}{an optional data frame giving a factor or factors defining the
     intra-subject model for multivariate repeated-measures data. See 
     \emph{Details} for an explanation of the intra-subject design and for

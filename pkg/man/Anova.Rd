@@ -2,6 +2,7 @@
 % Revision history:
 % checked in 2008-12-29 by J. Fox (corresponds to version 1.2-10 of car)
 %	2009-01-16 updated doc to correspond to changes in linearHypothesis. J. Fox
+%   2009-09-16 updated to reflect new singular.ok argument
 %-------------------------------------------------------------------------------
 
 \name{Anova}
@@ -41,13 +42,15 @@ Anova(mod, ...)
 Manova(mod, ...)
 
 \method{Anova}{lm}(mod, error, type=c("II","III", 2, 3), 
-	white.adjust=c(FALSE, TRUE, "hc3", "hc0", "hc1", "hc2", "hc4"), ...)
+	white.adjust=c(FALSE, TRUE, "hc3", "hc0", "hc1", "hc2", "hc4"), 
+	singular.ok, ...)
 
 \method{Anova}{aov}(mod, ...)
 
 \method{Anova}{glm}(mod, type=c("II","III", 2, 3), 
     test.statistic=c("LR", "Wald", "F"), 
-    error, error.estimate=c("pearson", "dispersion", "deviance"), ...)
+    error, error.estimate=c("pearson", "dispersion", "deviance"), 
+    singular.ok, ...)
     
 \method{Anova}{multinom}(mod, type = c("II","III", 2, 3), ...)
 
@@ -65,10 +68,13 @@ Manova(mod, ...)
 
 \method{summary}{Anova.mlm}(object, test.statistic, multivariate=TRUE, 
     univariate=TRUE, digits=getOption("digits"), ...)
+    
 \method{Anova}{coxph}(mod, type=c("II","III", 2, 3), 
 	test.statistic=c("LR", "Wald"), ...)
+	
 \method{Anova}{default}(mod, type=c("II","III", 2, 3), 
-	test.statistic=c("Chisq", "F"), vcov.=vcov(mod), ...)
+	test.statistic=c("Chisq", "F"), vcov.=vcov(mod), 
+	singular.ok, ...)
 }
 
 \arguments{
@@ -79,6 +85,10 @@ Manova(mod, ...)
     F-tests for a generalized linear model, a \code{glm} object from which the
     dispersion is to be estimated. If not specified, \code{mod} is used.}
   \item{type}{type of test, \code{"II"}, \code{"III"}, \code{2}, or \code{3}.}
+  \item{singular.ok}{defaults to \code{TRUE} for type-II tests, and \code{FALSE}
+    for type-III tests (where the tests for models with aliased coefficients
+    will not be straightforwardly interpretable); 
+    if \code{FALSE}, a model with aliased coefficients produces an error.}
   \item{test.statistic}{for a generalized linear model, whether to calculate 
     \code{"LR"} (likelihood-ratio), \code{"Wald"}, or \code{"F"} tests; for a Cox
     model, whether to calculate \code{"LR"} (partial-likelihood ratio) or
