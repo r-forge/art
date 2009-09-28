@@ -213,6 +213,7 @@ lht(model, ...)
 }
 
 \examples{
+data(Davis, package="car")
 mod.davis <- lm(weight ~ repwt, data=Davis)
 
 ## the following are equivalent:
@@ -235,6 +236,7 @@ linearHypothesis(mod.davis, c("(Intercept) = 0", "repwt = 1"), vcov = hccm)
 linearHypothesis(mod.davis, c("(Intercept) = 0", "repwt = 1"), 
     vcov = hccm(mod.davis, type = "hc3"))
 
+data(Duncan, package="car")
 mod.duncan <- lm(prestige ~ income + education, data=Duncan)
 
 ## the following are all equivalent:
@@ -258,6 +260,8 @@ linearHypothesis(mod.duncan.2, coefs[grep(":", coefs)], verbose=TRUE)
 
 ## a multivariate linear model for repeated-measures data
 ## see ?OBrienKaiser for a description of the data set used in this example.
+
+data(OBrienKaiser, package="car")
 
 mod.ok <- lm(cbind(pre.1, pre.2, pre.3, pre.4, pre.5, 
                      post.1, post.2, post.3, post.4, post.5, 

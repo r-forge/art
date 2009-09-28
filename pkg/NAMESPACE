@@ -4,12 +4,15 @@
 # revised 2009-1-14 by S. Weisberg 
 # revised 2009-1-15 by J. Fox
 # revised 2009-8-21 by S. Weisberg
+# revised 2009-9-27 by J. Fox
 #-------------------------------------------------------------------------------
 
 export(
 	Anova,
 	deltaMethod,
 	hccm,
+	influencePlot,
+	leveneTest,
 	lht,
     linearHypothesis,
     Manova,
@@ -39,14 +42,18 @@ S3method(deltaMethod, mer)
 S3method(deltaMethod,multinom)
 S3method(deltaMethod,polr)
 S3method(deltaMethod, nls)
-S3method(powerTransform,default) 
-S3method(powerTransform,lm)
-S3method(inverseResponsePlot,lm)
-S3method(invTranPlot,formula)
-S3method(invTranPlot,default)
-S3method(powerTransform,formula)  
+S3method(powerTransform, default) 
+S3method(powerTransform, lm)
+S3method(influencePlot, lm)
+S3method(inverseResponsePlot, lm)
+S3method(invTranPlot, formula)
+S3method(invTranPlot, default)
+S3method(powerTransform, formula)  
 S3method(hccm, default)              
 S3method(hccm, lm)   
+S3method(leveneTest, formula)
+S3method(leveneTest, lm)
+S3method(leveneTest, default)         
 S3method(linearHypothesis, default) 
 S3method(linearHypothesis, glm)     
 S3method(linearHypothesis, lm)
@@ -55,8 +62,8 @@ S3method(Manova, mlm)
 S3method(print, Anova.mlm)   
 S3method(print, linearHypothesis.mlm)           
 S3method(summary, Anova.mlm)
-S3method(print,powerTransform)
-S3method(print,summary.powerTransform)
-S3method(summary,powerTransform)
-S3method(coef,powerTransform)
-S3method(vcov,powerTransform)
+S3method(print, powerTransform)
+S3method(print, summary.powerTransform)
+S3method(summary, powerTransform)
+S3method(coef, powerTransform)
+S3method(vcov, powerTransform)

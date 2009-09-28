@@ -3,6 +3,7 @@
 % checked in 2008-12-29 by J. Fox (corresponds to version 1.2-10 of car)
 %	2009-01-16 updated doc to correspond to changes in linearHypothesis. J. Fox
 %   2009-09-16 updated to reflect new singular.ok argument
+%   2009-09-26 updated for removal from car. J. Fox
 %-------------------------------------------------------------------------------
 
 \name{Anova}
@@ -200,6 +201,7 @@ Manova(mod, ...)
 
 ## Two-Way Anova
 
+data(Moore, package="car")
 mod <- lm(conformity ~ fcategory*partner.status, data=Moore, 
   contrasts=list(fcategory=contr.sum, partner.status=contr.sum))
 Anova(mod)
@@ -225,6 +227,7 @@ Anova(mod, type="III")
 ## One-Way MANOVA
 ## See ?Pottery for a description of the data set used in this example.
 
+data(Pottery, package="car")
 summary(Anova(lm(cbind(Al, Fe, Mg, Ca, Na) ~ Site, data=Pottery)))
 
 ## Type II MANOVA Tests:
@@ -261,6 +264,7 @@ summary(Anova(lm(cbind(Al, Fe, Mg, Ca, Na) ~ Site, data=Pottery)))
 ## MANOVA for a randomized block design (example courtesy of Michael Friendly:
 ##  See ?Soils for description of the data set)
 
+data(Soils, package="car")
 soils.mod <- lm(cbind(pH,N,Dens,P,Ca,Mg,K,Na,Conduc) ~ Block + Contour*Depth, 
     data=Soils)
 Manova(soils.mod)
@@ -300,6 +304,7 @@ idata
 ## 14 followup    4
 ## 15 followup    5
 
+data(OBrienKaiser, package="car")
 mod.ok <- lm(cbind(pre.1, pre.2, pre.3, pre.4, pre.5, 
                      post.1, post.2, post.3, post.4, post.5, 
                      fup.1, fup.2, fup.3, fup.4, fup.5) ~  treatment*gender, 
