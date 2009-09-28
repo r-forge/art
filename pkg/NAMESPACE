@@ -5,21 +5,26 @@
 # revised 2009-1-15 by J. Fox
 # revised 2009-8-21 by S. Weisberg
 # revised 2009-9-27 by J. Fox
+# revised 2009-9-28 by J. Fox
 #-------------------------------------------------------------------------------
 
 export(
 	Anova,
+	basicpower, bcpower, yjpower, powerTransform,
 	deltaMethod,
+	dwt,
+	durbinWatsonTest,
+	estimateTransform, testTransform,	
 	hccm,
 	influencePlot,
+	invResPlot, inverseResponsePlot, invTranPlot, invTranEstimate,
 	leveneTest,
 	lht,
     linearHypothesis,
     Manova,
-    basicpower, bcpower, yjpower, powerTransform,
-    estimateTransform,testTransform,
-    invResPlot,inverseResponsePlot,invTranPlot,
-    invTranEstimate
+    ncvTest,
+    outlierTest,
+    vif
     )
     
 S3method(Anova, aov)
@@ -42,6 +47,8 @@ S3method(deltaMethod, mer)
 S3method(deltaMethod,multinom)
 S3method(deltaMethod,polr)
 S3method(deltaMethod, nls)
+S3method(durbinWatsonTest, default)     
+S3method(durbinWatsonTest, lm)        
 S3method(powerTransform, default) 
 S3method(powerTransform, lm)
 S3method(influencePlot, lm)
@@ -59,11 +66,18 @@ S3method(linearHypothesis, glm)
 S3method(linearHypothesis, lm)
 S3method(linearHypothesis, mlm)
 S3method(Manova, mlm) 
+S3method(ncvTest, glm)              
+S3method(ncvTest, lm)    
+S3method(outlierTest, lm)   
 S3method(print, Anova.mlm)   
 S3method(print, linearHypothesis.mlm)           
 S3method(summary, Anova.mlm)
+S3method(print, chisqTest)
+S3method(print, durbinWatsonTest)
+S3method(print, outlierTest)        
 S3method(print, powerTransform)
 S3method(print, summary.powerTransform)
 S3method(summary, powerTransform)
 S3method(coef, powerTransform)
 S3method(vcov, powerTransform)
+S3method(vif, lm)
