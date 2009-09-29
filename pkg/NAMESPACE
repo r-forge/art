@@ -4,13 +4,14 @@
 # revised 2009-1-14 by S. Weisberg 
 # revised 2009-1-15 by J. Fox
 # revised 2009-8-21 by S. Weisberg
-# revised 2009-9-27 by J. Fox
-# revised 2009-9-28 by J. Fox
+# revised 2009-9-29 by J. Fox
 #-------------------------------------------------------------------------------
 
 export(
 	Anova,
 	basicpower, bcpower, yjpower, powerTransform,
+	boxCoxVariable,
+	boxTidwell,
 	deltaMethod,
 	dwt,
 	durbinWatsonTest,
@@ -37,6 +38,8 @@ S3method(Anova, multinom)
 S3method(Anova, mlm)            
 S3method(Anova, polr)
 S3method(Anova, survreg) 
+S3method(boxTidwell, default)       
+S3method(boxTidwell, formula)       
 S3method(deltaMethod, default)
 S3method(deltaMethod, lm)
 S3method(deltaMethod, lmList)
@@ -70,13 +73,14 @@ S3method(ncvTest, glm)
 S3method(ncvTest, lm)    
 S3method(outlierTest, lm)   
 S3method(print, Anova.mlm)   
+S3method(print, boxTidwell)         
 S3method(print, linearHypothesis.mlm)           
-S3method(summary, Anova.mlm)
 S3method(print, chisqTest)
 S3method(print, durbinWatsonTest)
 S3method(print, outlierTest)        
 S3method(print, powerTransform)
 S3method(print, summary.powerTransform)
+S3method(summary, Anova.mlm)
 S3method(summary, powerTransform)
 S3method(coef, powerTransform)
 S3method(vcov, powerTransform)
