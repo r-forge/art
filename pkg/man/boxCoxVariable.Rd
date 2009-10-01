@@ -45,7 +45,7 @@ boxCoxVariable(y)
 
 \author{John Fox \email{jfox@mcmaster.ca}}
 
-\seealso{\code{\link[MASS]{boxcox}}, \code{\link{powerTransform}}, \code{\link{bcpower}}} % , \code{\link{avPlots}}
+\seealso{\code{\link[MASS]{boxcox}}, \code{\link{powerTransform}}, \code{\link{bcPower}}} % , \code{\link{avPlots}}
 
 \examples{
 data(Ornstein, package="car")

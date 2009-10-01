@@ -2,7 +2,7 @@
 # 2009-09-16: added ... argument to print.summary.powerTransform. J. Fox
 
 ### Power families:
-basicpower <- function(U,lambda) {
+basicPower <- function(U,lambda) {
  bp1 <- function(U,lambda){
   if(any(U[!is.na(U)] <= 0)) stop("First argument must be strictly positive.")
   if (abs(lambda) <= 1.e-6) log(U) else (U^lambda)
@@ -18,7 +18,7 @@ basicpower <- function(U,lambda) {
     bp1(out,lambda)
   out}
   
-bcpower <- function(U,lambda,jacobian.adjusted=FALSE) {
+bcPower <- function(U,lambda,jacobian.adjusted=FALSE) {
  bc1 <- function(U,lambda){
   if(any(U[!is.na(U)] <= 0)) stop("First argument must be strictly positive.")
   z <- if (abs(lambda) <= 1.e-6) log(U) else ((U^lambda) - 1)/lambda
@@ -34,12 +34,12 @@ bcpower <- function(U,lambda,jacobian.adjusted=FALSE) {
     bc1(out,lambda)
   out}
   
-yjpower <- function(U,lambda,jacobian.adjusted=FALSE) {
+yjPower <- function(U,lambda,jacobian.adjusted=FALSE) {
  yj1 <- function(U,lambda){
   nonnegs <- U >= 0
   z <- rep(NA,length(U))
-  z[which(nonnegs)] <- bcpower(U[which(nonnegs)]+1,lambda,jacobian.adjusted=FALSE)
-  z[which(!nonnegs)] <- -bcpower(-U[which(!nonnegs)]+1,2-lambda,jacobian.adjusted=FALSE)
+  z[which(nonnegs)] <- bcPower(U[which(nonnegs)]+1,lambda,jacobian.adjusted=FALSE)
+  z[which(!nonnegs)] <- -bcPower(-U[which(!nonnegs)]+1,2-lambda,jacobian.adjusted=FALSE)
   if (jacobian.adjusted == TRUE)
         z * (exp(mean(log((1 + abs(U))^(2 * nonnegs - 1)),na.rm=TRUE)))^(1 -
             lambda)
@@ -103,7 +103,7 @@ powerTransform.formula <- function(object, data, subset, weights, na.action,
   } 
 
 estimateTransform <- function(X, Y, weights=NULL,
-   family="bcpower",start=NULL,method="L-BFGS-B",...) {
+   family="bcPower",start=NULL,method="L-BFGS-B",...) {
    fam <- match.fun(family)
    Y <- as.matrix(Y) # coerces Y to be a matrix.
    X <- as.matrix(X) # coerces X to be a matrix. 
@@ -212,5 +212,19 @@ vcov.powerTransform <- function(object,...) {
   colnames(ans) <- names(coef(object))
   ans}
   
+plot.powerTransform <- function(x,z=NULL,round=TRUE,plot=pairs,...){
+  y <- match.fun(x$family)(x$y,coef(x,round=round))
+  if (is.null(z)) plot(y,...) else
+   if (is.matrix(z) | is.data.frame(z)) plot(cbind(y,z),...) else {
+    y <- cbind(y,z)
+    colnames(y)[dim(y)[2]] <- deparse(substitute(z))
+    plot(y,...) }
+    }
+
+
+
+
+  
   
 
+                              

@@ -1,7 +1,7 @@
 #-------------------------------------------------------------------------------
 # Revision history:
 # checked in 2008-12-29 by J. Fox
-# revised 2009-1-14 by S. Weisberg 
+# revised 2009-1-14 by S. Weisberg
 # revised 2009-1-15 by J. Fox
 # revised 2009-8-21 by S. Weisberg
 # revised 2009-9-29 by J. Fox
@@ -9,7 +9,7 @@
 
 export(
 	Anova,
-	basicpower, bcpower, yjpower, powerTransform,
+	basicPower, bcPower, yjPower, powerTransform,
 	boxCoxVariable,
 	boxTidwell,
 	deltaMethod,
@@ -25,21 +25,24 @@ export(
     Manova,
     ncvTest,
     outlierTest,
-    vif
+    vif,
+    avPlot, avPlots, showExtremes, residualPlot, residualPlots
     )
-    
+
 S3method(Anova, aov)
 S3method(Anova, coxph)
-S3method(Anova, default)                
-S3method(Anova, glm)  
+S3method(Anova, default)
+S3method(Anova, glm)
 S3method(Anova, lm)
-S3method(Anova, manova)                  
+S3method(Anova, manova)
 S3method(Anova, multinom)
-S3method(Anova, mlm)            
+S3method(Anova, mlm)
 S3method(Anova, polr)
-S3method(Anova, survreg) 
-S3method(boxTidwell, default)       
-S3method(boxTidwell, formula)       
+S3method(Anova, survreg)
+S3method(avPlot, lm)
+S3method(avPlot, glm)
+S3method(boxTidwell, default)
+S3method(boxTidwell, formula)
 S3method(deltaMethod, default)
 S3method(deltaMethod, lm)
 S3method(deltaMethod, lmList)
@@ -50,38 +53,47 @@ S3method(deltaMethod, mer)
 S3method(deltaMethod,multinom)
 S3method(deltaMethod,polr)
 S3method(deltaMethod, nls)
-S3method(durbinWatsonTest, default)     
-S3method(durbinWatsonTest, lm)        
-S3method(powerTransform, default) 
+S3method(durbinWatsonTest, default)
+S3method(durbinWatsonTest, lm)
+S3method(powerTransform, default)
 S3method(powerTransform, lm)
 S3method(influencePlot, lm)
 S3method(inverseResponsePlot, lm)
 S3method(invTranPlot, formula)
 S3method(invTranPlot, default)
-S3method(powerTransform, formula)  
-S3method(hccm, default)              
-S3method(hccm, lm)   
+S3method(powerTransform, formula)
+S3method(hccm, default)
+S3method(hccm, lm)
 S3method(leveneTest, formula)
 S3method(leveneTest, lm)
-S3method(leveneTest, default)         
-S3method(linearHypothesis, default) 
-S3method(linearHypothesis, glm)     
+S3method(leveneTest, default)
+S3method(linearHypothesis, default)
+S3method(linearHypothesis, glm)
 S3method(linearHypothesis, lm)
 S3method(linearHypothesis, mlm)
-S3method(Manova, mlm) 
-S3method(ncvTest, glm)              
-S3method(ncvTest, lm)    
-S3method(outlierTest, lm)   
-S3method(print, Anova.mlm)   
-S3method(print, boxTidwell)         
-S3method(print, linearHypothesis.mlm)           
+S3method(Manova, mlm)
+S3method(ncvTest, glm)
+S3method(ncvTest, lm)
+S3method(outlierTest, lm)
+S3method(print, Anova.mlm)
+S3method(print, boxTidwell)
+S3method(print, linearHypothesis.mlm)
 S3method(print, chisqTest)
 S3method(print, durbinWatsonTest)
-S3method(print, outlierTest)        
+S3method(print, outlierTest)
 S3method(print, powerTransform)
 S3method(print, summary.powerTransform)
 S3method(summary, Anova.mlm)
+S3method(print,powerTransform)
+S3method(print,summary.powerTransform)
+S3method(summary,powerTransform)
+S3method(plot,powerTransform)
+S3method(coef,powerTransform)
+S3method(vcov,powerTransform)
+S3method(residualPlots,lm)
+S3method(residualPlots,glm)
 S3method(summary, powerTransform)
 S3method(coef, powerTransform)
 S3method(vcov, powerTransform)
 S3method(vif, lm)
+

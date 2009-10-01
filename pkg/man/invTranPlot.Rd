@@ -22,9 +22,9 @@ invTranPlot(x, ...)
 \S3method{invTranPlot}{default}(x,y,lambda=c(-1,0,1),lty.lines=1:(1+length(lambda)),
         lwd.lines=2, col.lines=rainbow(length(lambda)+1,start=.7,end=.1),
         xlab=deparse(substitute(x)),ylab=deparse(substitute(y)),
-        family="bcpower",optimal=TRUE,key="topleft",...)
+        family="bcPower",optimal=TRUE,key="topleft",...)
 
-invTranEstimate(x,y,family="bcpower",confidence=0.95)
+invTranEstimate(x,y,family="bcPower",confidence=0.95)
 }
 
 \arguments{
@@ -36,8 +36,8 @@ invTranEstimate(x,y,family="bcpower",confidence=0.95)
   \item{na.action}{Optional, as in \code{lm}, the action for missing data}
   \item{lambda}{The powers used in the plot.  The optimal power than minimizes
   the residual sum of squares is always added unless optimal is FALSE. }
-  \item{family}{The transformation family to use, \code{"bcpower"},
-  \code{"yjpower"}, or a user-defined family.}
+  \item{family}{The transformation family to use, \code{"bcPower"},
+  \code{"yjPower"}, or a user-defined family.}
   \item{confidence}{returns a profile likelihood confidence interval for the optimal 
 transformation with this confidence level.  If FALSE, no interval is returned.}
   \item{optimal}{Include the optimal value of lambda?}

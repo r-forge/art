@@ -66,24 +66,29 @@ rather than a formula is equivalent to
 \code{powerTransform(cbind(LBM,SSF)~1, ais)}. 
 
 Two families of power transformations are available.
-The bcpower family of \emph{scaled power transformations}, \code{family="bctrans"}, 
+The bcPower family of \emph{scaled power transformations},
+\code{family="bctrans"}, 
 equals \eqn{(U^{\lambda}-1)/\lambda}{(U^(lambda)-1)/lambda} 
 for \eqn{\lambda}{lambda} \eqn{\neq}{not equal to} zero, and 
 \eqn{\log(U)}{log(U)} if \eqn{\lambda =0}{lambda = 0}.
   
-If \code{family="yjpower"} then the Yeo-Johnson transformations are used.  
+If \code{family="yjPower"} then the Yeo-Johnson transformations are used.  
 This is is Box-Cox transformation of \eqn{U+1} for nonnegative values, 
-and of \eqn{|U|+1} with parameter \eqn{2-\lambda}{2-lambda} for \eqn{U} negative.
+and of \eqn{|U|+1} with parameter \eqn{2-\lambda}{2-lambda} for \eqn{U}
+negative.
   
 Other families can be added by writing a function whose first argument is a
 matrix or vector to be transformed, whose second argument is the value of the
 transformation parameter.  The function must return modified transformations
-so that the Jacobian of the transformation is equal to one; see Cook and Weisberg
+so that the Jacobian of the transformation is equal to one; see Cook and
+Weisberg
 (1982).
 
-The function \code{powerTransform} is a front-end for \code{\link{estimateTransform}}.  
+The function \code{powerTransform} is a front-end for
+\code{\link{estimateTransform}}.  
 
-The function \code{\link{testTransform}} is used to obtain likelihood ratio tests for
+The function \code{\link{testTransform}} is used to obtain likelihood ratio
+tests for
 any specified value for the transformation parameters.  It is used by the
 summary method for powerTransform objects.
   
@@ -96,10 +101,12 @@ the summary method provides both the estimates, standard errors, marginal Wald
 confidence intervals and relevant likelihood ratio tests.  
 
 Several helper functions are available.  The \code{coef} method returns 
-the estimated transformation parameters, while \code{coef(object,round=TRUE)} will
+the estimated transformation parameters, while \code{coef(object,round=TRUE)}
+will
 return the transformations rounded to nearby convenient values within 1.96
 standard errors of the mle.
-The \code{vcov} function returns the estimated covariance matrix of the estimated
+The \code{vcov} function returns the estimated covariance matrix of the
+estimated
 transformation parameters.  A \code{print} method is used to
 print the objects and \code{summary} to provide more information.  By default
 the summary method calls \code{testTransform} and provides likelihood ratio type
@@ -108,10 +115,12 @@ parameters equal 0, for log transformations, and for a convenient rounded value
 not far from the mle.  The function can be called
 directly to test any other value for lambda.
 }
-\references{Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations. \emph{Journal
+\references{Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations.
+\emph{Journal
 of the Royal Statisistical Society, Series B}. 26 211-46.
 
-Cook, R. D. and Weisberg, S. (1999).  \emph{Applied Regression Including Computing
+Cook, R. D. and Weisberg, S. (1999).  \emph{Applied Regression Including
+Computing
 and Graphics}.  Wiley.
 
 Fox, J. (2002).  \emph{R and S-Plus Companion to Applied Regression}.  Sage. 
@@ -128,14 +137,14 @@ power transformations to improve normality or symmetry.
 \author{ Sanford Weisberg, sandy@stat.umn.edu }
 
 \seealso{\code{\link{estimateTransform}},
-\code{\link{optim}}, \code{\link{bcpower}}, \code{\link{transform}}. }
+\code{\link{optim}}, \code{\link{bcPower}}, \code{\link{transform}}. }
 \examples{
 data(ais,package="alr3")
 # Box Cox Method, univariate
 summary(p1 <- powerTransform(LBM~Ht+Wt+RCC,ais))
 # fit linear model with transformed response:
 coef(p1,round=TRUE)
-summary(m1 <- lm(bcpower(LBM,p1$roundlam)~Ht+Wt+RCC,ais))
+summary(m1 <- lm(bcPower(LBM,p1$roundlam)~Ht+Wt+RCC,ais))
 # Multivariate Box Cox
 summary(powerTransform(cbind(LBM,Ht,Wt,RCC)~1,ais))
 # Multivariate transformation to normality within levels of 'Sex'
@@ -144,7 +153,7 @@ summary(a3<-powerTransform(cbind(LBM,Ht,Wt,RCC)~Sex,ais))
 testTransform(a3,c(0,0,0,-1))
 # save the rounded transformed values, plot them with a separate
 # color for males and females
-transformedY <- bcpower(with(ais,cbind(LBM,Ht,Wt,RCC)),coef(a3,round=TRUE))
+transformedY <- bcPower(with(ais,cbind(LBM,Ht,Wt,RCC)),coef(a3,round=TRUE))
 \dontrun{pairs(transformedY,col=c("red","blue")[ais$Sex+1])}
 # could also add the transformed variables to the data set using usual
 # power transformations and the 'transform' function in the base package.

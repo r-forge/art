@@ -24,7 +24,7 @@ invTranPlot.formula <- function(x, data, subset, na.action, ...) {
 invTranPlot.default<- function(x,y,lambda=c(-1,0,1),lty.lines=1:(1+length(lambda)),
         lwd.lines=2, col.lines=rainbow(length(lambda)+1,start=.7,end=.1),
         xlab=deparse(substitute(x)),ylab=deparse(substitute(y)),
-        family="bcpower",optimal=TRUE,key="topleft",...){
+        family="bcPower",optimal=TRUE,key="topleft",...){
  if (is.factor(x)) stop("Predictor variable may not be a factor")
  if (is.factor(y)) stop("Response variable may not be a factor")
  if (optimal){opt <- invTranEstimate(x,y,family=family,confidence=FALSE)
@@ -36,19 +36,22 @@ invTranPlot.default<- function(x,y,lambda=c(-1,0,1),lty.lines=1:(1+length(lambda
  for (j in 1:length(lam)){
      m1 <- lm(y~fam(x,lam[j]))
      rss <- c(rss,deviance(m1))
-     lines(new,predict(m1,data.frame(x=new)),lty=lty.lines[j],col=col.lines[j],lwd=lwd.lines)}
+     lines(new,predict(m1,data.frame(x=new)),lty=lty.lines[j],col=col.lines[j],
+      lwd=lwd.lines)}
  if (class(key) == "logical") {
     if (key == TRUE) {
       print("Click mouse on plot to locate the key, or press Escape")
       loc <-locator(n=1)
-      legend(loc[1],loc[2], legend = as.character(round(lam,2)),lwd=lwd,lty=lty.lines,col=col.lines)}}
+      legend(loc[1],loc[2], legend =  as.character(round(lam,2)), 
+          lwd=lwd.lines, lty=lty.lines, col=col.lines)}}
     else {
       loc <- key
-      legend(loc[1],loc[2], legend = as.character(round(lam,2)),lty=lty.lines,col=col.lines,cex=.75)}
+      legend(loc[1],loc[2], legend =
+as.character(round(lam,2)),lty=lty.lines,col=col.lines,cex=.75)}
  data.frame(lambda=lam,RSS=rss)
 }
 
-invTranEstimate <- function(x,y,family="bcpower",confidence=0.95){
+invTranEstimate <- function(x,y,family="bcPower",confidence=0.95){
   if (is.factor(x)) stop("Predictor variable may not be a factor")
   if (is.factor(y)) stop("Response variable may not be a factor")
   fam <- match.fun(family)

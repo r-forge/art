@@ -3,26 +3,30 @@
 
 \title{Finding univariate or multivariate power transformations}
 \description{
-  \code{estimateTransform} computes members of families of transformations indexed by one
-parameter, the Box-Cox power family, or the Yeo and Johnson (2000) family, or the
+  \code{estimateTransform} computes members of families of transformations
+indexed by one
+parameter, the Box-Cox power family, or the Yeo and Johnson (2000) family, or
+the
 basic power family, interpreting zero power as logarithmic. 
 The family can be modified to have Jacobian one, or not, except for the basic
 power family.  Most users will use the function \code{\link{powerTransform}}, which
 is a front-end for this function.
 }
 \usage{
-estimateTransform(X, Y, weights=NULL, family="bcpower",start=NULL,
+estimateTransform(X, Y, weights=NULL, family="bcPower",start=NULL,
          method="L-BFGS-B",...)
 }
 
 \arguments{
   \item{X}{A matrix or data.frame giving the \dQuote{right-side variables}.}
-  \item{Y}{A vector or matrix or data.frame giving the \dQuote{left-side variables.}}
+  \item{Y}{A vector or matrix or data.frame giving the \dQuote{left-side
+variables.}}
   \item{weights}{Case weights, is in \sQuote{lm}.}
   \item{family}{The transformation family to use.  This is the quoted name of a
-  function for computing the transformed values.  The default is \dQuote{bcpower}
+  function for computing the transformed values.  The default is
+\dQuote{bcPower}
   for the Box-Cox power family and the most likely alternative is
-  \dQuote{yjpower} for the Yeo-Johnson family of transformations.}
+  \dQuote{yjPower} for the Yeo-Johnson family of transformations.}
   \item{start}{Starting values for the computations.  It is usually adequate
   to leave this at its default value of NULL.}
   \item{method}{The computing alogrithm used by \code{\link{optim}} for the
@@ -80,6 +84,6 @@ testTransform(out2,c(0,1,0))
 m1 <- lm(Volume~log(Height)+log(Girth),trees)
 (out3 <- powerTransform(m1))
 # update the lm model with the transformed response
-update(m1,basicpower(out3$y,out3$roundlam)~.)
+update(m1,basicPower(out3$y,out3$roundlam)~.)
 }
 \keyword{ regression}% at least one, from doc/KEYWORDS
