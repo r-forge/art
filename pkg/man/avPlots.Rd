@@ -67,12 +67,12 @@ in \code{\link{showExtremes}} for details.}
 \code{identify.points} is not 
   FALSE.}
   \item{col}{color for points; the default is the \emph{second} entry
-    in the current color palette (see \code{\link[base]{palette}}
-    and \code{\link[base]{par}}).}
+    in the current color palette (see \code{\link[grDevices]{palette}}
+    and \code{\link[graphics]{par}}).}
   \item{col.lines}{color for the fitted line.}
   \item{pch}{plotting character for points; default is \code{1} 
-    (a circle, see \code{\link[base]{par}}).}
-  \item{lwd}{line width; default is \code{2} (see \code{\link[base]{par}}).}
+    (a circle, see \code{\link[graphics]{par}}).}
+  \item{lwd}{line width; default is \code{2} (see \code{\link[graphics]{par}}).}
 \item{xlab}{x-axis label.  If omitted a label will be constructed.}
 \item{ylab}{y-axis label.  If omitted a label will be constructed.}
   \item{type}{if \code{"Wang"} use the method of Wang (1985);
@@ -107,8 +107,8 @@ in \code{\link{showExtremes}} for details.}
 
 \author{John Fox \email{jfox@mcmaster.ca}, Sanford Weiberg \email{sandy@umn.edu}}
 
-\seealso{\code{\link{residualPlots}}
-%,\code{\link{crPlots}}, \code{\link{ceresPlots}}, \code{\link{leveragePlots}}
+\seealso{\code{\link{residualPlots}} ,\code{\link{crPlots}}, \code{\link{ceresPlots}},
+% \code{\link{leveragePlots}}
 }
 
 \examples{

@@ -4,7 +4,7 @@
 # revised 2009-1-14 by S. Weisberg
 # revised 2009-1-15 by J. Fox
 # revised 2009-8-21 by S. Weisberg
-# revised 2009-9-29 by J. Fox
+# revised 2009-10-09 by J. Fox
 #-------------------------------------------------------------------------------
 
 export(
@@ -12,6 +12,11 @@ export(
 	basicPower, bcPower, yjPower, powerTransform,
 	boxCoxVariable,
 	boxTidwell,
+	ceresPlot,
+    ceresPlots,
+    crPlot,
+    crPlots,
+    crp,
 	deltaMethod,
 	dwt,
 	durbinWatsonTest,
@@ -20,6 +25,8 @@ export(
 	influencePlot,
 	invResPlot, inverseResponsePlot, invTranPlot, invTranEstimate,
 	leveneTest,
+	leveragePlot,
+    leveragePlots,
 	lht,
     linearHypothesis,
     Manova,
@@ -43,6 +50,10 @@ S3method(avPlot, lm)
 S3method(avPlot, glm)
 S3method(boxTidwell, default)
 S3method(boxTidwell, formula)
+S3method(ceresPlot, glm)            
+S3method(ceresPlot, lm)
+S3method(crPlot, glm)               
+S3method(crPlot, lm)              
 S3method(deltaMethod, default)
 S3method(deltaMethod, lm)
 S3method(deltaMethod, lmList)
@@ -67,6 +78,8 @@ S3method(hccm, lm)
 S3method(leveneTest, formula)
 S3method(leveneTest, lm)
 S3method(leveneTest, default)
+S3method(leveragePlot, glm)         
+S3method(leveragePlot, lm)     
 S3method(linearHypothesis, default)
 S3method(linearHypothesis, glm)
 S3method(linearHypothesis, lm)
