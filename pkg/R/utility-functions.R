@@ -1,6 +1,7 @@
 #-------------------------------------------------------------------------------
 # Revision history:
 # checked in 2008-12-29 by J. Fox (corresponds to version 1.2-10 of car)
+# 2009-10-18 added coefnames2bs(). J. Fox.
 #-------------------------------------------------------------------------------
 
 
@@ -124,4 +125,22 @@ mfrow <- function(n, max.plots=0){
 	rows <- round(sqrt(n))
 	cols <- ceiling(n/rows)
 	c(rows, cols)
+}
+
+coefnames2bs <- function(g, para.names, parameterPrefix="b"){
+	metas <- c("(", ")", "[", "]", "{", "}", ".", "*", "+", "^", "$", ":", "|")
+	metas2 <- paste("\\", metas, sep="")
+	metas3 <- paste("\\\\", metas, sep="")
+	for (i in seq(along=metas))
+		para.names <- gsub(metas2[i], metas3[i], para.names) # fix up metacharacters
+	para.order <- order(nchar(para.names), decreasing=TRUE) 
+	para.names <- para.names[para.order] # avoid partial-name substitution
+	std.names <- if ("(Intercept)" %in% para.names)
+				paste(parameterPrefix, 0:(length(para.names) - 1), sep = "")
+			else paste(parameterPrefix, 1:length(para.names), sep = "")
+	std.names.ordered <- std.names[para.order]
+	for (i in seq(along=para.names)){
+		g <- gsub(para.names[i], std.names.ordered[i], g) 
+	}
+	list(g=g, std.names=std.names)
 }
