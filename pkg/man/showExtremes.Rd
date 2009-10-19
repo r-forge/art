@@ -26,7 +26,7 @@ plotted vertical coordinates
 Plotting labels.  If NULL, case numbers will be used.
 }
   \item{ids}{
-How points are to be identified.  See Details below
+How points are to be identified.  See Details below.
 }
   \item{cex.id}{
 Controls the size of the plotted labels
@@ -70,8 +70,9 @@ A utility function used for its side-effect of drawing labels on a plot.
 }
 \author{John Fox \email{jfox@mcmaster.ca}, Sanford Weiberg \email{sandy@umn.edu}}
 
-\seealso{\code{\link{avPlots}}, \code{\link{residualPlots}}
-%,\code{\link{mmPlots}}, \code{\link{crPlots}}, \code{\link{leveragePlots}}
+\seealso{\code{\link{avPlots}}, \code{\link{residualPlots}},
+%\code{\link{mmPlots}}, 
+\code{\link{crPlots}}, \code{\link{leveragePlots}}
 }
 
 \examples{

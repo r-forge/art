@@ -39,7 +39,7 @@ residualPlots.lm <- function(m,vars=~.,
     } }
   # Tukey's test
   if (fitted == TRUE){
-   ans <- rbind(ans,residualPlot(m,"tukey",plot=plot,...))
+   ans <- rbind(ans,residualPlot(m,"fitted",plot=plot,...))
    row.names(ans)[nr+1] <- "Tukey test"
    ans[nr+1,2] <- 2*pnorm(abs(ans[nr+1,1]),lower.tail=FALSE)}
   mtext(side=3,outer=TRUE,main, cex=1.4)
@@ -50,7 +50,7 @@ residualPlots.glm <- function(m, ...) {
  invisible(residualPlots.lm(m,...))
  }
 
-residualPlot <- function(m,variable="tukey",type="pearson",
+residualPlot <- function(m,variable="fitted",type="pearson",
     plot=TRUE,add.quadratic=TRUE,
     identify.points = "xy",
     labels = names(residuals(m)[!is.na(residuals(m))]),
@@ -62,10 +62,10 @@ residualPlot <- function(m,variable="tukey",type="pearson",
      paste(toupper(substring(string,1,1)),substring(string,2),sep="")}
  ylab <- paste(string.capitalize(type),"Residuals")
  col <- match(variable,names(m$model))
- if(is.na(col) && variable != "tukey")
+ if(is.na(col) && variable != "fitted")
    stop(paste(variable,"is not a term in the mean function"))
- horiz <- if(variable == "tukey") predict(m) else m$model[[col]]
- lab <- if(variable == "tukey") {"Fitted values"} else variable
+ horiz <- if(variable == "fitted") predict(m) else m$model[[col]]
+ lab <- if(variable == "fitted") {"Fitted values"} else variable
  ans <-
    if(inherits(horiz,"poly")) {
        horiz <- horiz[,1]
@@ -92,7 +92,7 @@ residualPlot <- function(m,variable="tukey",type="pearson",
  
 # September 24, 2009  Curvature testing is ONLY for lm's!
 residCurvTest <- function(m,variable) {
- if(variable == "tukey") tukeyNonaddTest(m) else {
+ if(variable == "fitted") tukeyNonaddTest(m) else {
   if(is.na(match(variable, attr(m$terms,"term.labels"))))
      stop(paste(variable,"is not a term in the mean function")) else {
      xsqres <- qr.resid(m$qr,model.frame(m)[[variable]]^2)

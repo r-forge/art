@@ -17,17 +17,20 @@ is Tukey's test for nonadditivity when plotting against fitted values.
 
 residualPlots (m, ...)
 
-\S3method{residualPlots}{lm}(m,vars=~.,fitted=TRUE,plot=TRUE,
-     layout=NULL,ask,...)
+\S3method{residualPlots}{lm}(m, vars = ~., layout = NULL, ask, 
+                 main = "Residual Plots", fitted = TRUE, plot = TRUE, ...)
 
 \S3method{residualPlots}{glm}(m,...)
 
 ### The following are three related functions:    
 
-residualPlot(m,varname="tukey",type="pearson",
-                    plot=TRUE,add.quadratic=TRUE,...)
+residualPlot(m, variable = "fitted", type = "pearson", plot = TRUE,     
+                 add.quadratic = TRUE, identify.points = "xy", labels =        
+                 names(residuals(m)[!is.na(residuals(m))]), id.n = 3,          
+                 cex.identify = 0.75, col = palette()[2], col.lines =          
+                 col[1], xlab, ylab, pch = 1, lwd = 2, ...)      
                     
-residCurvTest(m,varname)
+residCurvTest(m,variable)
 
 tukeyNonaddTest(m)
 }
@@ -40,27 +43,50 @@ One
   specification \code{vars = ~.-X3} would plot against all predictors
   except for \code{X3}.  Some nonstandard predictors, such as B-splines, are 
   skipped.}
-  \item{fitted}{If TRUE, the default, plot against fitted values.}
-  \item{tukey}{If TRUE, draw plot of residuals versus fitted values and compute
-  for \code{lm} objectes Tukey's test of non-additivity.}
-
-  \item{layout}{ If set to a value like \code{c(1,1)} or \code{c(4,3)}, the layout
-  of the graph will have this many rows and columns.  If not set, the program will
+  \item{layout}{ If set to a value like \code{c(1,1)} or \code{c(4,3)}, the
+layout
+  of the graph will have this many rows and columns.  If not set, the program
+will
   select an appropriate layout.  If the number of graphs exceed nine, you must 
   select the layout yourself, or you will get a maximum of nine per page.}
-  \item{ask}{If TRUE, ask the user before drawing the next plot; FALSE if don't ask.}
-  \item{\dots}{\code{residualPlots} passes these arguments to \code{residualPlot}.  
-  \code{residualPlot}
-  passes them to \code{plot}. }
-  \item{varname}{Quoted variable name for the horizontal axis, 
-  \code{"tukey"} by
-  default for Tukey's test and the plot versus fitted values.}
+  \item{ask}{If TRUE, ask the user before drawing the next plot; FALSE if don't
+ask.}
+  \item{main}{Main title for the graphs.  Sue \code{main=""} for no title.}
+  \item{fitted}{If TRUE, the default, include the plot against fitted values.}
+  \item{plot}{If TRUE, draw the plot(s).}
+  \item{...}{Additional arguments passed to \code{residualPlot} and then the
+\code{plot}.}
+  \item{variable}{Quoted variable name for the horizontal axis, or 
+  \code{"fitted"} to the plot versus fitted values.}
   \item{type}{Type of residuals to be used.  Pearson residuals are 
   appropriate for \code{lm} objects since there are equivalent to ordinary residuals
-  with ols and correctly weighted residuals with wls.}
+  with ols and correctly weighted residuals with wls.  Any quoted string that
+is an appropriate value of the \code{type} argument to
+\code{\link{residuals.lm}}.}
   \item{add.quadratic}{if TRUE, fits the quadratic regression of the
   vertical axis on the horizontal axis.  Ignored for glms.}
-  \item{plot}{If TRUE, draw the plot(s).}
+  \item{identify.points}{if set to \code{FALSE}, no point identification is
+used.  If set to \code{TRUE}, then the \code{\link{identify}} function
+is called to allow for interaction identification of points.  Other values of
+this argument will allow for automatic identification of points.
+The default of \code{"xy"} will identify the most
+extreme points in both the horizontal and vertical directions; \code{y} uses the
+vertical-direction only, and \code{"x"} the horizontal-direction only.  Other
+options for this argument are given as values of the argument \code{ids} in
+\code{\link{showExtremes}}.} 
+\item{labels}{Values to use to label points.  The default is to use the
+row names from the data or the row numbers.}
+\item{id.n}{Number of points to identify.  If \code{identify.points="xy"} then
+up to \code{id.n} points will be identified in each direction.}     
+\item{cex.identify}{character expansion for labels}
+\item{col}{default color for points}
+\item{col.lines}{default color for lines}
+\item{xlab}{X-axis label.  If not specified, a useful label is constructed by
+the function.}
+\item{ylab}{Y-axis label.  If not specified, a useful label is constructed by
+the function.}
+\item{pch}{plotting character.}
+\item{lwd}{line width for lines.}
   }
 \details{
 \code{residualPlots} draws all residuals plots, versus
@@ -84,7 +110,8 @@ residual plots.
 Linear Regression}, third edition, Wiley, Chapter 8}
 \author{Sanford Weisberg, \email{sandy@stat.umn.edu}}
 
-\seealso{See Also \code{\link{lm}}}
+\seealso{See Also \code{\link{lm}}, \code{\link{identify}},
+\code{\link{showExtremes}} }
 
 
 \examples{

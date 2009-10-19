@@ -2,7 +2,7 @@ showExtremes <- function(x, y, labels = NULL,
      ids = "xy", cex.id=.75, id.n=3, res=y-mean(y,na.rm=TRUE)) {
   if(id.n > 0L) {
     if (is.null(labels))
-      labels <- paste(1L:length(res))
+      labels <- paste(seq_along(x))
     getPoints <- function(z) {
        names(z) <- labels
        iid <- 1L:id.n
@@ -23,3 +23,6 @@ showExtremes <- function(x, y, labels = NULL,
     text(x[i], y[i], labels[i], cex = cex.id, xpd = TRUE,
       pos = labpos[i], offset = 0.25)}
   } }
+
+
+
