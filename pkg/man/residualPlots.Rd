@@ -15,27 +15,27 @@ is Tukey's test for nonadditivity when plotting against fitted values.
 \usage{
 ### This is a generic function with only one required argument:
 
-residualPlots (m, ...)
+residualPlots (model, ...)
 
-\S3method{residualPlots}{lm}(m, vars = ~., layout = NULL, ask, 
+\S3method{residualPlots}{lm}(model, vars = ~., layout = NULL, ask, 
                  main = "Residual Plots", fitted = TRUE, plot = TRUE, ...)
 
-\S3method{residualPlots}{glm}(m,...)
+\S3method{residualPlots}{glm}(model, ...)
 
 ### The following are three related functions:    
 
-residualPlot(m, variable = "fitted", type = "pearson", plot = TRUE,     
+residualPlot(model, variable = "fitted", type = "pearson", plot = TRUE,     
                  add.quadratic = TRUE, identify.points = "xy", labels =        
                  names(residuals(m)[!is.na(residuals(m))]), id.n = 3,          
                  cex.identify = 0.75, col = palette()[2], col.lines =          
                  col[1], xlab, ylab, pch = 1, lwd = 2, ...)      
                     
-residCurvTest(m,variable)
+residCurvTest(model,variable)
 
-tukeyNonaddTest(m)
+tukeyNonaddTest(model)
 }
 \arguments{
-  \item{m}{ A regression object }
+  \item{model}{ A regression object }
   \item{vars}{ A one-sided formula that specifies a subset of the predictors. 
 One
   residual plot is drawn for each specified.  The default
