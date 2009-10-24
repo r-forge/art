@@ -26,7 +26,7 @@ residualPlots (model, ...)
 
 residualPlot(model, variable = "fitted", type = "pearson", plot = TRUE,     
                  add.quadratic = TRUE, identify.points = "xy", labels =        
-                 names(residuals(m)[!is.na(residuals(m))]), id.n = 3,          
+                 names(residuals(model)[!is.na(residuals(model))]), id.n = 3,          
                  cex.identify = 0.75, col = palette()[2], col.lines =          
                  col[1], xlab, ylab, pch = 1, lwd = 2, ...)      
                     
