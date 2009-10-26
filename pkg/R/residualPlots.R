@@ -81,10 +81,12 @@ residualPlot <- function(model,variable="fitted",type="pearson",
         lm2 <- lm(residuals(model,type=type)~poly(horiz,2))
         lines(new,predict(lm2,list(horiz=new)),lty=3,lwd=2)
         }}}
-  if (!is.logical(identify.points))
-    showExtremes(horiz,residuals(model,type=type), labels=labels, ids=identify.points, 
-      id.n=id.n, cex.id=cex.identify,res=residuals(model,type=type)) else 
-      if (identify.points) identify(horiz,residuals(model,type=type), labels, cex=cex.identify)
+  if (!is.factor(horiz)) {
+     if (!is.logical(identify.points))
+       showExtremes(horiz,residuals(model,type=type), labels=labels, ids=identify.points, 
+         id.n=id.n, cex.id=cex.identify,res=residuals(model,type=type)) else 
+         if (identify.points) identify(horiz,residuals(model,type=type), labels, cex=cex.identify)
+     }
   ans}
  
 # September 24, 2009  Curvature testing is ONLY for lm's!
