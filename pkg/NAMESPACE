@@ -33,7 +33,8 @@ export(
     ncvTest,
     outlierTest,
     vif,
-    avPlot, avPlots, showExtremes, residualPlot, residualPlots
+    avPlot, avPlots, showExtremes, residualPlot, residualPlots,
+    bootCase, nextBoot
     )
 
 S3method(Anova, aov)
@@ -48,6 +49,11 @@ S3method(Anova, polr)
 S3method(Anova, survreg)
 S3method(avPlot, lm)
 S3method(avPlot, glm)
+S3method(bootCase, lm)
+S3method(bootCase, glm)
+S3method(bootCase, nls)
+S3method(nextBoot, lm)
+S3method(nextBoot, nls)
 S3method(boxTidwell, default)
 S3method(boxTidwell, formula)
 S3method(ceresPlot, glm)            
@@ -56,11 +62,6 @@ S3method(crPlot, glm)
 S3method(crPlot, lm)              
 S3method(deltaMethod, default)
 S3method(deltaMethod, lm)
-S3method(deltaMethod, lmList)
-S3method(deltaMethod, nlsList)
-S3method(deltaMethod, lme)
-S3method(deltaMethod, nlme)
-S3method(deltaMethod, mer)
 S3method(deltaMethod,multinom)
 S3method(deltaMethod,polr)
 S3method(deltaMethod, nls)

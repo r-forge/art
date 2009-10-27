@@ -3,10 +3,6 @@
 \alias{deltaMethod.default}
 \alias{deltaMethod.lm} 
 \alias{deltaMethod.nls}
-\alias{deltaMethod.lmList}
-\alias{deltaMethod.nlsList}
-\alias{deltaMethod.lme} 
-\alias{deltaMethod.nlme}
 \alias{deltaMethod.multinom} 
 \alias{deltaMethod.polr} 
 
@@ -21,15 +17,11 @@ with known or estimated covariance matrix.
 \usage{
 deltaMethod(object, ...)
 
-\method{deltaMethod}{default}(object,g,var,...)
+\method{deltaMethod}{default}(object, g ,var, func=g, ...)
 \method{deltaMethod}{lm} (object, g, var=vcov,parameterPrefix="b",...)
 \method{deltaMethod}{nls}(object, g, var=vcov,...)
-\method{deltaMethod}{lmList}(object, g, var=vcov,parameterPrefix="b",...)
-\method{deltaMethod}{nlsList}(object, g, var=vcov,...)
-\method{deltaMethod}{lme} (object, g, var=vcov,parameterPrefix="b",...)
-\method{deltaMethod}{nlme} (object, g, var=vcov,...)
 \method{deltaMethod}{multinom} (object, g, var=vcov,parameterPrefix="b",...)
-\method{deltaMethod}{polr} (object, g, var=vcov,parameterPrefix="b",...)
+\method{deltaMethod}{polr} (object, g, var=vcov,...)
 
 }
 \arguments{
@@ -45,8 +37,10 @@ deltaMethod(object, ...)
   estimates.  For the default method, this argument is required.  For all
   other methods, this argument must either provide the estimated covariance
   matrix or a function that when applied
-  to \code{object} returns a covariance matrix.  The default is generally
+  to \code{object} returns a covariance matrix.  The default is 
   to use the function \code{vcov}.}
+  \item{func}{A quoted string used to annotate output.  The default of
+  \code{func = g} is usually appropriate.}
   \item{parameterPrefix}{Typically a single letter with default
   \code{"b"} giving the prefix of the
   names of the parameter names used in the argument \code{g}; see details.}
@@ -83,6 +77,23 @@ In the argument \code{g} you must provide a quoted character string
 that gives the function of interest, for example \code{g="b1/b2"}, where
 \code{b1} and \code{b2} are names of two of the coefficient estimates. 
 
+For \code{lm}, \code{glm} and \code{polr} objects, the parameters are named for the
+corresponding regressors.  For example, in in
+\code{m2 <- lm(Y~X1+X2)}, \code{names(coef(m2))} returns
+\code{c("(Intercept)","X1","X2")}.  If you wanted the estimate and standard 
+error for the ratio of the coefficient estimates for \code{X1} and the
+\code{(Intercept)}, you could either set \code{g = "X1/(Intercept)"} or
+you could set \code{g = "b0/b1"}.  In general, you
+can refer to the parameters using \dQuote{b0}, \dQuote{b1},...,\dQuote{bp}, 
+if \code{parameterPrefix} is
+left at its default value of \dQuote{b}.  In this case, \dQuote{b0} is the 
+intercept (if the model has no intercept, then the numbering of the 
+parameters starts with 1, not 0), \dQuote{b1} is the first estimated parameter
+after the intercept, and so on.  You can also use the names of the corresponding
+regressors in place of the parameter names.  for \code{multinom} objects you 
+can only use the parameter names starting with the prefix, not the names of
+the corresponding regressors. 
+
 For nonlinear regression objects of type nls, the call \code{coef(object)} 
 returns the estimated
 coefficient vectors with names corresponding to parameter names.  
@@ -91,17 +102,7 @@ For example,
 have parameters named  \code{c("theta", "gamma")}.   
 In many other familiar regression methods, such as lm and glm, the names of
 the coefficient estimates are the corresponding variable names, not
-parameter names. For example, in
-\code{m2 <- lm(Y~X1+X2)}, \code{names(coef(m2))} returns
-\code{c("(Intercept)","X1","X2")}.   For models where the 
-coefficient names are variable
-names, \code{deltaMethod} will
-provide names for the parameter estimates, given by  
-\dQuote{b0}, \dQuote{b1},...,\dQuote{bp}, if \code{parameterPrefix} is
-left at its default value of \dQuote{b}.  In this case, \dQuote{b0} is the 
-intercept (if the model has no intercept, then the numbering of the 
-parameters starts with 1, not 0), \dQuote{b1} is the first estimated parameter
-after the intercept, and so on.    
+parameter names. 
 
 Special characters should be avoided in the names of the elements of \eqn{x} 
 as these can cause problems, and the \code{D} function used to compute derivatives may 
@@ -117,9 +118,14 @@ The value of \code{g} is given as a row label.
 \seealso{First derivatives of \code{g} are computed using symbolic differentiation
 by the function \code{\link{D}}.}
 
-\references{S. Weisberg (2005), \emph{Applied
+\references{
+J. Fox and S. Weisberg (2011). \emph{R Companion to Applied Regression},
+second edition, Sage.
+
+S. Weisberg (2005), \emph{Applied
 Linear Regression}, third edition, Wiley, Section 6.1.2}
-\author{Sanford Weisberg, \email{sandy@stat.umn.edu}}
+\author{Sanford Weisberg, \email{sandy@stat.umn.edu}
+and John Fox,  \email{jfox@mcmaster.ca}}
 
 \examples{
 # cakes is a data frame with response Y, predictors X1 X2 
